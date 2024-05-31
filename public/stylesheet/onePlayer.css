@@ -1,0 +1,56 @@
+/* Style for player details container */
+.player-details {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Style for player name */
+.player-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Style for player details */
+.player-info {
+    margin-bottom: 10px;
+}
+
+/* Style for player detail labels */
+.detail-label {
+    font-weight: bold;
+}
+
+/* Style for player detail values */
+.detail-value {
+    margin-left: 10px;
+}
+
+/* Style for back button */
+.back-button {
+    margin-top: 20px;
+}
+
+/* Style for links */
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.img{
+    height: 200px;
+    width: 200px;
+}
+
+.back-btn a{
+    text-decoration: none;
+}

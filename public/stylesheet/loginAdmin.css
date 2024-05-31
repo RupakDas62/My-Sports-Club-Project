@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(45deg, #0000008a, #ffffff);
+    color: black;
+    font-family: 'Baloo Bhaijaan 2', sans-serif;
+}
+
+.flex {
+    background-image: url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.background {
+    position: relative;
+    height: 90%; /* Set height to fill parent */
+    width: 80%;
+    overflow: hidden; /* Ensure overflow is hidden to contain gradient */
+}
+
+.background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+}
+
+.image {
+    position: relative;
+    height: 100%;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    /* position: relative; */
+    z-index: 1;
+    padding: 20px;
+    height: 430px;
+    width: 400px;
+    border: 2px solid #000000;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+}
+.header{
+    display: flex;
+    justify-content: center;
+}
+.email{
+    margin: 30px 0px 0px 0px;
+}
+.email i{
+    margin-left: -40px;
+}
+input{
+    height: 40px;
+    width: 300px;
+    border-radius: 30px;
+    border: 2px solid white;
+    background: transparent;
+    padding: 2px 0px 0px 20px;
+}
+.password{
+    margin-top: 30px;
+}
+.password i{
+    margin-left: -40px;
+    cursor: pointer;
+}
+.remember{
+    display: flex;
+    margin-top: 40px;
+    align-items: center;
+}
+.remember p{
+    margin-left: 12px;
+    margin-top: 18px;
+}
+#check{
+    height: 13px;
+    width: 13px;
+}
+.forgot{
+    margin-left: 65px;
+}
+a{
+    text-decoration: none;
+    color: #4d90e9;
+}
+a:hover{
+    color: rgb(4, 23, 119);
+    font-size: 16px;
+}
+.login{
+    margin-top: 40px;
+}
+button{
+    height: 40px;
+    width: 300px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    background-color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+}
+button:hover{
+    background-color: blue;
+}
+.register{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+.register a{
+    margin-left: 5px;
+}
+
+.register p {
+    color: #fff;
+}

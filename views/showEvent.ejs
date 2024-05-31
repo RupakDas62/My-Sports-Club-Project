@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .team {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #f8f9fa;
+            width: 90%;
+            margin-left: 25px;
+        }
+        .vs {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            text-align: center;
+        }
+        .vs-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .player {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .player img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .team-name {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #343a40;
+        }
+        .vs {
+            margin-top: -600px;
+        }
+        /* .width {
+            width: 100%;
+        } */
+
+    </style>
+</head>
+<body class="d-flex flex-column align-items-center">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="btn btn-info" href="/">Back</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Go to Cricket Events</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="chess-link" href="#">Go to Chess Events</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="archery-link" href="#">Go to Archery Events</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    <div class="container">
+        <h1 class="mt-4 mb-4">Events List</h1>
+
+        <% if (message) { %>
+        <div class="alert alert-<%= messageType %>">
+            <%= message %>
+        </div>
+        <% } %>
+
+        <% cricketEvents.forEach(cricketEvent => { %>
+        <div class="card mb-4 cont">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title text-center">Cricket Event Details</h3>
+                <h5 class="card-title"><%= cricketEvent.name %></h5>
+                <p class="card-text">Date: <%= cricketEvent.date.toDateString() %></p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <% cricketEvent.teams.forEach((team, index) => { %>
+                    <div class="col-md-6">
+                        <div class="team">
+                            <h4 class="team-name"><%= team.name %></h4>
+                            <ul class="list-unstyled">
+                                <% if (team.players && team.players.length > 0) { %>
+                                    <% team.players.forEach(player => { %>
+                                        <li class="player">
+                                            <% if (player.profileImage) { %>
+                                                <img src="/uploads/<%= player.profileImage %>" alt="Player Image">
+                                            <% } %>
+                                            <%= player.name %>
+                                        </li>
+                                    <% }) %>
+                                <% } else { %>
+                                    <li>No players assigned</li>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
+                    <% }) %>
+                    <% if (cricketEvent.teams.length > 1) { %>
+                        <div class="col-md-12">
+                            <div class="vs-container">
+                                <div class="vs">VS</div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+
+        <hr class="dark"><hr>
+
+        <% chessEvents.forEach(event => { %>
+            <div class="card mb-4 cont" id="chess-section">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title text-center">Chess Event Details</h3>
+                    <h5 class="card-title"><%= event.name %></h5>
+                    <p class="card-text">Date: <%= event.date.toDateString() %></p>
+                </div>
+                <div class="card-body">
+                    <% const rounds = {}; %>
+                    <% event.pairings.forEach((pairing, index) => { %>
+                        <% const roundNumber = Math.floor(index / 4) + 1; %>
+                        <% if (!rounds[roundNumber]) { rounds[roundNumber] = []; } %>
+                        <% rounds[roundNumber].push(pairing); %>
+                    <% }); %>
+            
+                    <% Object.keys(rounds).forEach(round => { %>
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="card-title">Round <%= round %></h5>
+                        </div>
+                        <div class="card-body">
+                            <% rounds[round].forEach(pairing => { %>
+                                <% const player1Name = pairing.player1.basicDetails.name; %>
+                                <% const player2Name = pairing.player2.basicDetails.name; %>
+                                <div class="team">
+                                    <h4 class="team-name"><%= player1Name %> VS <%= player2Name %></h4>
+                                </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                    <% }) %>
+                </div>
+            </div>
+            <% }) %>
+
+            <hr><hr>
+
+            <div class="container mt-5" id="archery-section">
+                <% archeryEvents.forEach(event => { %>
+                    <div class="card mt-5 mb-5 shadow-sm">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h3 class="card-title mb-0">Archery Event Details</h3>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-text"><strong>Tournament Name:</strong> <%= event.name %></h5>
+                            <p class="card-text"><strong>Date and Time:</strong> <%= event.date.toLocaleString() %></p>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+            
+            
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/javascript/showEvent.js"></script>
+</body>
+</html>

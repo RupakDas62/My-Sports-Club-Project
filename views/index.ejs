@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Club Home</title>
+    <!-- <link rel="stylesheet" href="/styles/main.css"> Example: link to your CSS file -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link 
+        rel="stylesheet" 
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    >
+    <link rel="stylesheet" href="/stylesheet/index.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" id="nav-logo" href="/">
+                <img id="logo-img" src="images/logo.png" alt="logo">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="about-section-link" href="#">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/showEvent">Events</a>
+                    </li>
+                    <% if(admin) { %>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Create Events
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/createCricketEvent">Cricket</a></li>
+                                <li><a class="dropdown-item" href="/createChessEvent">Chess</a></li>
+                                <li><a class="dropdown-item" href="/createArcheryEvent">Archery</a></li>
+                            </ul>
+                        </li>
+                    <% } %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Sports Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Cricket</a></li>
+                            <li><a class="dropdown-item" href="#">Chess</a></li>
+                            <li><a class="dropdown-item" href="#">Archery</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            View Campus
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Kolkata Campus</a></li>
+                            <li><a class="dropdown-item" href="#">Delhi Campus</a></li>
+                            <li><a class="dropdown-item" href="#">Mumbai Campus</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <% if(user || admin) { %>
+                <form action="/search" method="GET" class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <% } %>
+            </div>
+
+            <div class="d-flex gap-4">
+                <% if (user || admin) { %>
+                    <div class="d-flex align-items-center auth">
+                        <a class="btn btn-dark px-3 ms-2 logout" href="/logout">Logout</a>
+                        <% if(user) { %>
+                            <a class="img" href="/player/<%= user._id %>">
+                                <img src="<%=user.profilePicUrl %>" alt="Profile Picture" class="rounded-circle pfp"
+                                    width="40" height="40">
+                            </a>
+                            <% } else if(admin) { %>
+                                <div class="col-4 ml-4">
+                                    <a class="btn btn-dark px-3 register" href="/signup">Register</a>
+                                </div>
+                                <img src="data:image/png;base64,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"
+                                    class="rounded-circle img-admin" height="30px" width="30px" alt="">
+                                <% } %>
+                    </div>
+                    <% } else { %>
+                        <div class="col-4">
+                            <a class="btn btn-dark px-4" href="/login">Login</a>
+                        </div>
+                        <div class="col-4 admin">
+                            <a class="btn btn-dark px-3" href="/admin">Admin</a>
+                        </div>
+                        <% } %>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-section d-flex flex-column">
+
+        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+            <!-- <p id="description-text"></p> -->
+            <div class="carousel-inner">
+                <!-- Add your slider images here -->
+                
+                <div class="carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1605296867304-46d5465a13f1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y2hlc3N8ZW58MHx8MHx8fDA%3D');"></div>
+                <div class="d-flex justify-content-center message">
+                    <% if (messages && messages.length > 0) { %>
+                        <% messages.forEach(message => { %>
+                            <div class="alert alert-<%= messageType %>">
+                                <%= message %>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                </div>
+            </div>
+            <!-- Optional: Add Carousel Controls -->
+            <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </a>
+        </div>
+        
+    </section>
+            <section id="about-us-section" class="about-section">
+                <h1>About Us</h1>
+                <p class="welcome">Welcome to Rupak Sports Club</p>
+                <p id="description-text"></p>
+                <p></p>
+
+                <img id="owner-pic" src="images/My formal pic.png" alt="Owner Picture">
+                <p class="mt-2"><a target="_blank" href="https://github.com/RupakDas62">Rupak Das</a></p>
+            </section>
+
+            <section class="players-section">
+                <% if(user || admin) { %>
+                    <div class="mt-3 in-player-div">
+                        <h2 class="d-flex justify-content-center">All Players</h2>
+                    </div>
+                    <hr>
+
+                    <!-- Iterate over each sport -->
+                    <% sports.forEach(sport=> { %>
+                        <h3 class="d-flex justify-content-center">
+                            <%= sport %>
+                        </h3>
+
+                        <!-- Filter players for the current sport -->
+                        <% const sportPlayers=players.filter(player=> player.sport === sport); %>
+
+                            <!-- Display players in a div -->
+
+                            <div class="players">
+                                <% sportPlayers.forEach(player=> { %>
+                                    <a href="/player/<%= player._id %>">
+                                        <div class="player">
+                                            <img class="rounded-circle img" src="/uploads/<%=player.profileImage %>"
+                                                alt="Profile Picture" height="150px" width="150px">
+                                            <p>Name: <%= player.name %>
+                                            </p>
+                                            <p>Age: <%= player.age %>
+                                            </p>
+                                            <p>Gender: <%= player.gender %>
+                                            </p>
+                                            <!-- Add more player details as needed -->
+                                        </div>
+                                    </a>
+                                    <% }); %>
+                            </div>
+                            <!-- Add a horizontal line after each sport's players -->
+                            <hr>
+                            <% }); %>
+                                <%}%>
+            </section>
+
+            <footer>
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>About Us</h3>
+                        <a href="/"><img src="images/logo.png" alt="this is an logo image" height="90px"
+                                width="100px"></a>
+                        <p>We are India's Most Loved Sports Community.
+                            <br> Join us!
+                        </p>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#"> Check Our Sports Activity</a></li>
+                            <li><a href="#">Events</a></li>
+                            <li><a
+                                    href="https://s1.q4cdn.com/365366812/files/doc_downloads/privacy/ADM_ADM.com_PrivacyPolicy_English_092118.pdf">Terms
+                                    And Conditions</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Connect With Us</h3>
+                        <ul>
+                            <li><a href="https://www.facebook.com/profile.php?id=100050135477678" target="_blank">
+                                    <i class="fa-brands fa-facebook"></i>
+                                    Facebook
+                                </a>
+                            </li>
+                            <li><a href="https://x.com/Rupak91377451?t=kuTF1IHfXF35zMJq1Ld5rg&s=09" target="_blank">
+                                    <i class="fa-brands fa-square-twitter"></i>
+                                    Twitter
+                                </a>
+                            </li>
+                            <li><a href="https://www.instagram.com/dasr16983/" target="_blank">
+                                    <i class="fa-brands fa-instagram"></i>
+                                    Instagram
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Get In Touch</h3>
+                        <ul>
+                            <li>
+                                <i class="fa-solid fa-envelope"></i>
+                                rupak.das2022@uem.edu.in
+                            </li>
+                            <br>
+                            <li>
+                                <i class="fa-solid fa-envelope"></i>
+                                dasr16983@gmail.com
+                            </li>
+                            <br>
+                            <li>
+                                <i class="fa-solid fa-phone"></i>
+                                +033 1234 5678 9123
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p>&copy; 2023 Rupak Sports Club. All rights reserved.</p>
+            </footer>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script src="/javascript/index.js"></script>
+</body>
+
+</html>
+
+

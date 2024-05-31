@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(45deg, #9f6ad88a, #6795d5);
+    color: black;
+    font-family: 'Baloo Bhaijaan 2', sans-serif;
+}
+/* .header h2{
+    font-weight: 900;
+} */
+
+.flex {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url("https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+} 
+
+.input {
+    width: 400px;
+}
+
+.container {
+    /* position: relative; */
+    z-index: 1;
+    padding: 20px;
+    /* height: 430px;
+    width: 400px; */
+    width: 40%;
+    border: 2px solid #000000;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+}
+.header{
+    display: flex;
+    justify-content: center;
+}
+.email{
+    margin: 20px 0px 0px 0px;
+    display: flex;
+    align-items: center;
+}
+.email i{
+    margin-left: -35px;
+}
+input{
+    height: 40px;
+    width: 300px;
+    border-radius: 30px;
+    border: 2px solid white;
+    background: transparent;
+    padding: 2px 0px 0px 20px;
+}
+.password{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+.password i{
+    margin-left: -35px;
+    cursor: pointer;
+}
+.confirmPassword{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+.confirmPassword i{
+    margin-left: -35px;
+    cursor: pointer;
+}
+a{
+    text-decoration: none;
+    color: #5aaaff;
+}
+a:hover{
+    color: rgb(0, 0, 141);
+    font-size: 16px;
+    transition: 0.4s;
+}
+.remember {
+    color: #fff
+}
+button{
+    height: 40px;
+    width: 300px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    background-color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+}
+.signUp{
+    margin-top: 20px;
+}
+button:hover{
+    background-color: blue;
+    transition: 0.4s;
+}
+.login{
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+.login p{
+    font-size: 16px;
+    margin-top: 10px;
+    color: #ffffff;
+}
+.login a{
+    margin-left: 15px;
+}
+
+#disable1 {
+    display: none;
+}
+
+#disable2 {
+    display: none;
+}
